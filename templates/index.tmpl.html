@@ -2,11 +2,6 @@
 <meta charset="utf-8">
 <title>П О Л Я К И</title>
 <style>
-.node {
-  stroke: crimson;
-  stroke-width: 1.5px;
-}
-
 .node text {
   pointer-events: none;
   color: black;
@@ -33,18 +28,19 @@ text {
 .tree {
   margin: auto;
   max-width: 960px;
+  z-index: 10000;
 }
 
 .lead {
-  background: crimson;
   height:50px;
   margin: 0;
   padding: 30px;
-  font-size: 20px;
+  font-size: 30px;
   font-weight: 100;
-  color: whiteSmoke;
+  color: black;
   font-family: Helvetica;
   text-align: center;
+  z-index: -1000;
 }
 </style>
 <body>
@@ -67,12 +63,12 @@ var svg = d3.select(".tree").append("svg")
 
 var force = d3.layout.force()
     .size([width, height])
-    .linkDistance(90)
-    .charge(-1000)
+    .linkDistance(40)
+    .charge(-500)
     //.linkStrength(1)
     //.charge(0)
     //.friction(.01)
-    //.gravity(.1);
+    .gravity(.1);
 
 d3.json("/static/data.json", function(error, json) {
   if (error) throw error;
@@ -91,7 +87,7 @@ d3.json("/static/data.json", function(error, json) {
       .data(json.nodes)
     .enter().append("g")
       .attr("class", "node")
-      //.call(force.drag);
+      .call(force.drag);
 
  node.append("circle")
       .attr("class", "node")
@@ -100,9 +96,32 @@ d3.json("/static/data.json", function(error, json) {
       .attr("r", function(d) { return Math.sqrt(d.size) * 3 || 4.5; })
       .style("fill", color);
 
+  node.append("svg:image")
+        .attr("xlink:href",  function(d) { return d.img;})
+        .attr("x", function(d) { return -25;})
+        .attr("y", function(d) { return -25;})
+        .attr("height", 50)
+        .attr("width", 50)
+        .on( 'mouseenter', function() {
+            d3.select( this )
+              .transition()
+              .attr("x", function(d) { return -60;})
+              .attr("y", function(d) { return -60;})
+              .attr("height", 100)
+              .attr("width", 100);
+          })
+        .on( 'mouseleave', function() {
+            d3.select( this )
+              .transition()
+              .attr("x", function(d) { return -25;})
+              .attr("y", function(d) { return -25;})
+              .attr("height", 50)
+              .attr("width", 50);
+          })
+
   node.append("text")
-      .attr("dx", -10)
-      .attr("dy", ".35em")
+      .attr("dx", function(d) { return d.type === "person" ? -40 : d.size/2*-1 + 5 })
+      .attr("dy", function(d) { return d.type === "person" ? 40 : 5 })
       .text(function(d) { return d.name });
 
   force.on("tick", function() {
@@ -116,7 +135,7 @@ d3.json("/static/data.json", function(error, json) {
 });
 
 function color(d) {
-  return d.fixed ? "khaki" : "SandyBrown" ;
+  return d.fixed || d.type === "theater" ? "khaki" : "SandyBrown" ;
 }
 
 
