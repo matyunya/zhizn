@@ -1,0 +1,102 @@
+
+{"nodes":[
+  {
+    "name": "МХТ",
+    "size": 30,
+    "fixed": true,
+    "px": 500,
+    "py": 100
+  },
+  {
+    "name": "Крачковский",
+    "size": 110
+  },
+  {
+    "name": "Крачковский",
+    "size": 110
+  },
+  {
+    "name": "Крачковский",
+    "size": 110
+  },
+  {
+    "name": "Крачковский",
+    "size": 110
+  },
+  {
+    "name": "Жмачковский",
+    "size": 10
+  },
+  {
+    "name": "БДТ",
+    "size": 30,
+    "fixed": true,
+    "px": 600,
+    "py": 100
+  },
+  {
+    "name": "Монкевич",
+    "size": 210
+  },
+  {
+    "name": "ХХК",
+    "size": 30,
+    "fixed": true,
+    "px": 400,
+    "py": 100
+  },
+  {
+    "name": "Петруччо",
+    "size": 110
+  }
+],
+"links":[
+  {
+    "source":1,
+    "target":0
+  },
+  {
+    "source":1,
+    "target":2
+  },
+  {
+    "source":2,
+    "target":4
+  },
+  {
+    "source":1,
+    "target":3
+  },
+  {
+    "source":3,
+    "target":5
+  },
+  {
+    "source":5,
+    "target":4
+  },
+  {
+    "source":7,
+    "target":0
+  },
+  {
+    "source":7,
+    "target":8
+  },
+  {
+    "source":2,
+    "target":6
+  },
+  {
+    "source":7,
+    "target":9
+  },
+  {
+    "source":3,
+    "target":4
+  },
+  {
+    "source":5,
+    "target":0
+  }
+]}
