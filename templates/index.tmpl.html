@@ -1,6 +1,11 @@
 <!DOCTYPE html>
+<head>
 <meta charset="utf-8">
 <title>Польская драматургия в российском современном театре</title>
+<link rel="icon" 
+      type="image/png" 
+      href="/static/img/favicon.png">
+</head>
 <style>
 .node text {
   pointer-events: none;
@@ -126,11 +131,10 @@ d3.json("/static/data.json", function(error, json) {
       .attr("r", function(d) { return Math.sqrt(d.size) * 3 || 4.5; })
       .style("fill", color)
 
-
   node.append("text")
       .attr("class", "text")
-      .attr("dx", function(d) { return d.type === "person" ? -40 : d.size/2*-1 + 5 })
-      .attr("dy", function(d) { return d.type === "person" ? 40 : 5 })
+      .attr("text-anchor", "middle")
+      .attr("dy", function(d) { return d.type === "person" ? 37 : 5 })
       .text(function(d) { return d.name });
 
   node.append("svg:image")
@@ -143,6 +147,7 @@ d3.json("/static/data.json", function(error, json) {
         .on( 'mouseover', function(d) {
             d3.select( this )
               .transition()
+              .delay(30)
               .attr("x", function(d) { return -60;})
               .attr("y", function(d) { return -60;})
               .attr("height", 100)
