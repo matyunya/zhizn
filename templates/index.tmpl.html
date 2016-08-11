@@ -10,7 +10,7 @@ body {
   font-family: 'Playfair Display', serif;
   font-size: 16px;
   background: ghostwhite;
-
+  display: none;
 }
 
 .lead {
@@ -73,17 +73,17 @@ body {
   -moz-animation-name: fadeLeft;
   -moz-animation-iteration-count: 1;
   -moz-animation-timing-function: ease-out;
-  -moz-animation-duration: 1.6s;
+  -moz-animation-duration: 2.0s;
 
   -webkit-animation-name: fadeLeft;
   -webkit-animation-iteration-count: 1;
   -webkit-animation-timing-function: ease-out;
-  -webkit-animation-duration: 1.6s;
+  -webkit-animation-duration: 2.0s;
 
   animation-name: fadeLeft;
   animation-iteration-count: 1;
   animation-timing-function: ease-out;
-  animation-duration: 1.6s;
+  animation-duration: 2.0s;
 }
 
 @-moz-keyframes fadeRight {
@@ -129,17 +129,17 @@ body {
   -moz-animation-name: fadeRight;
   -moz-animation-iteration-count: 1;
   -moz-animation-timing-function: ease-out;
-  -moz-animation-duration: 1.6s;
+  -moz-animation-duration: 2.0s;
 
   -webkit-animation-name: fadeRight;
   -webkit-animation-iteration-count: 1;
   -webkit-animation-timing-function: ease-out;
-  -webkit-animation-duration: 1.6s;
+  -webkit-animation-duration: 2.0s;
 
   animation-name: fadeRight;
   animation-iteration-count: 1;
   animation-timing-function: ease-out;
-  animation-duration: 1.6s;
+  animation-duration: 2.0s;
 }
 
 @-moz-keyframes fadeLeft {
@@ -172,8 +172,12 @@ body {
   margin: auto;
 }
 
+.loaded {
+  display: block;
+}
+
 </style>
-<body>
+<body onload="document.body.setAttribute('class','loaded')">
 <img id="bg" src="/static/img/light.png">
 <img id="curtain-left" src="/static/img/1.png">
 <img id="curtain-right" src="/static/img/2.png">
