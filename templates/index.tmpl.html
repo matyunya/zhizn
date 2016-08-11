@@ -167,6 +167,11 @@ body {
     }
 }
 
+#start:hover {
+  font-size:52px;
+  transition: 0.8s;
+}
+
 .container {
   max-width: 1200px;
   margin: auto;
@@ -176,6 +181,36 @@ body {
   display: block;
 }
 
+.hidden {
+  display: none;
+}
+
+#question {
+  margin-top: 40px;
+  font-size: 23px;
+  display: block;
+  z-index: 100;
+}
+
+#counter {
+  margin-top: 130px;
+  font-size: 20px;
+  font-style: italic;
+  display: block;
+  z-index: 100;
+}
+
+#answer {
+  z-index: 100;
+  font-size: 20px;
+}
+
+#portrait {
+  display: inline;
+  width: 380px;
+  float: left;
+  padding-right: 30px;
+}
 </style>
 <body onload="document.body.setAttribute('class','loaded')">
 <img id="bg" src="/static/img/light.png">
@@ -187,9 +222,41 @@ body {
   <div class="lead">
     Ричард III <i>или</i> Король Артур?
 
-    <p>Опознайте роль, <i>которую</i> исполняет актер на фотографии.</p>
+    <p>Опознайте роль, которую исполняет актер на фотографии.</p>
 
-    <p><a href="javascript:void"><b>Начать</b></a></p>
+    <p><a id="start" href="javascript:void"><b>Начать</b></a></p>
+  </div>
+  <div class="q hidden">
+      <img id="portrait" src="/static/img/0.jpg" />
+      <span id="counter"> </span>
+      <span id="question"> </span>
+      <span id="answer"><a id="start" href="javascript:void"><b>Ответить</b></a></span>
   </div>
 </div>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script type="text/javascript">
+var i = 1;
+var questions = ['Начнем с простого. Кого играет французский актер Филибер Рувьер, изображенный на картине Эдуарда Мане?',
+  'И еще немного Шекспира. Кого здесь исполняет Лоуренс Оливье?',
+  'Перейдем к нашим звездам. Кого играет Станиславский в народной драме «Царь Федор Иоаннович»?',
+  'Еще один простой вопрос. В роли кого на этой фотографии Ольга Леонардовна Книппер-Чехова?',
+  'Наверняка вам знаком этот портрет Всеволода Мейерхольда. Так кого он играет?',
+  'А теперь к более поздним представителям советского театра. В образе кого здесь Иннокентий Смоктуновский?',
+  'А сейчас разгадайте роль Андрея Миронова.',
+  'А теперь поиграем наоборот. Угадайте актера, который играет понятно кого.',
+  'В каком спектакле поет Дмитрий Певцов?',
+  'Ну и что-то современное. Кого играет актер «Гоголь-центра» Никита Кукушкин?'
+];
+
+$("#start").click(function () {
+  $(".lead").animate({opacity: 0}, 600, function () {
+    $(".lead, .q").toggleClass("hidden");
+    $("#counter").text(i + "/10");
+    $("#question").text(questions[i-1]);
+    i = i + 1;
+  });
+});
+
+</script>
+
 </body>
