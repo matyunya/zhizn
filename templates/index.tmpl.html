@@ -15,7 +15,7 @@ body {
 
 .lead {
   font-size: 60px;
-  margin-top: 90px;
+  margin-top: 120px;
   text-align: center;
   z-index: -100;
 
@@ -35,9 +35,13 @@ body {
   animation-duration: 1.6s;
 }
 
+.lead p {
+  font-size:48px;
+}
+
 @-moz-keyframes dropHeader {
     0% {
-        -moz-transform: translateY(-200px);
+        -moz-transform: translateY(-400px);
     }
     100% {
         -moz-transform: translateY(0);
@@ -45,7 +49,7 @@ body {
 }
 @-webkit-keyframes dropHeader {
     0% {
-        -webkit-transform: translateY(-200px);
+        -webkit-transform: translateY(-400px);
     }
     100% {
         -webkit-transform: translateY(0);
@@ -53,7 +57,7 @@ body {
 }
 @keyframes dropHeader {
     0% {
-        transform: translateY(-200px);
+        transform: translateY(-400px);
     }
     100% {
         transform: translateY(0);
@@ -113,6 +117,7 @@ body {
   left:0;
   width:100%;
   height:100%;
+  z-index: -100;
 }
 
 #curtain-right {
@@ -176,7 +181,11 @@ body {
 
 <div class="container">
   <div class="lead">
-    а люди в ней актеры
+    Ричард III <i>или</i> Король Артур?
+
+    <p>Опознайте роль, <i>которую</i> исполняет актер на фотографии.</p>
+
+    <p><a href="javascript:void"><b>Начать</b></a></p>
   </div>
 </div>
 </body>
