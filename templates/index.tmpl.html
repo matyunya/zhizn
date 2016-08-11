@@ -65,7 +65,15 @@ body {
 }
 
 #curtain-left {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
   position: absolute;
+  pointer-events: none;
+  user-drag: none; 
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
   top:0;
   left:0;
   z-index: 100;
@@ -84,6 +92,11 @@ body {
   animation-iteration-count: 1;
   animation-timing-function: ease-out;
   animation-duration: 2.0s;
+}
+
+#curtain-left:hover {
+  transform: scale(1.1);
+  transition: 0.05s;
 }
 
 @-moz-keyframes fadeRight {
@@ -121,6 +134,15 @@ body {
 }
 
 #curtain-right {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  position: absolute;
+  pointer-events: none;
+  user-drag: none; 
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
   top:0;
   right:0;
   position: absolute;
@@ -203,6 +225,17 @@ body {
 #answer {
   z-index: 100;
   font-size: 20px;
+  display: block;
+}
+
+#answers {
+  z-index: 100;
+  font-size: 18px;
+  display: block;
+  margin-top: 20px;
+  margin-left:60px;
+  line-height: 40px;
+  height:350px;
 }
 
 #portrait {
@@ -230,7 +263,15 @@ body {
       <img id="portrait" src="/static/img/0.jpg" />
       <span id="counter"> </span>
       <span id="question"> </span>
-      <span id="answer"><a id="start" href="javascript:void"><b>Ответить</b></a></span>
+      <span id="answers">
+        <form>
+          <input type="radio" value="0" id="0" name="answer"><label for="0"> </label><br/>
+          <input type="radio" value="1" id="1" name="answer"><label for="1"> </label><br/>
+          <input type="radio" value="2" id="2" name="answer"><label for="2"> </label><br/>
+          <input type="radio" value="3" id="3" name="answer"><label for="3"> </label>
+        </form>
+      </span>
+      <span id="answer"><a href="javascript:void" onclick="load()"><b>Ответить</b></a></span>
   </div>
 </div>
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
@@ -248,14 +289,77 @@ var questions = ['Начнем с простого. Кого играет фра
   'Ну и что-то современное. Кого играет актер «Гоголь-центра» Никита Кукушкин?'
 ];
 
+var answers = [
+['Ромео Капулетти',
+'Отелло',
+'Гамлета',
+'Розенкранца'],
+
+['Ричарда III',
+'Клавдия',
+'Петруччо',
+'Макбета'],
+
+['Бориса Годунова',
+'Федора Иоанновича',
+'Ивана Шуйского',
+'Воеводу Михайло Головина'],
+
+['Нины Заречной',
+'Елены Андреевны Серебряковой',
+'Раневской',
+'Маши Прозоровой'],
+
+['Генри Хиггинса из «Пигмалиона»',
+'Лорда Генри из «Портрета Дориана Грея»',
+'Торвальда Хельмера из «Кукольного дома»',
+'Евгения Онегина из «Евгения Онегина»'],
+
+['Родиона Раскольникова',
+'Князя Мышкина',
+'Порфирия Рогожина',
+'Алексея Карамазова'],
+
+['Фигаро',
+'Дон Жуан',
+'Чацкий',
+'Мольер'],
+
+['Джонни Депп',
+'Игорь Миркубанов',
+'Дмитрий Нагиев',
+'Сергей Безруков'],
+
+['«Граф Орлов»',
+'«Герой нашего времени»',
+'«Юнона и Авось»',
+'«Поющие под дождем»'],
+
+['«Приятную во всех отношениях даму»',
+'Панночку',
+'Коробочку Настасью Петровну',
+'Пульхерию Ивановну Товстогубиху'],
+];
+
 $("#start").click(function () {
   $(".lead").animate({opacity: 0}, 600, function () {
+    $("#curtain-right").attr("z-index", 0);
+    $("#curtain-left").attr("z-index", 0);
     $(".lead, .q").toggleClass("hidden");
-    $("#counter").text(i + "/10");
-    $("#question").text(questions[i-1]);
-    i = i + 1;
+    load();
   });
 });
+
+function load() {
+    $("#counter").text(i + "/10");
+    $("#question").text(questions[i-1]);
+    $('label[for="0"]').text(answers[i][0]);
+    $('label[for="1"]').text(answers[i][1]);
+    $('label[for="2"]').text(answers[i][2]);
+    $('label[for="3"]').text(answers[i][3]);
+    $('input:radio').removeAttr('checked');
+    i = i + 1;
+}
 
 </script>
 
