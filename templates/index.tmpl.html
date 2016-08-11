@@ -1,203 +1,24 @@
 <!DOCTYPE html>
 <head>
 <meta charset="utf-8">
-<title>Польская драматургия в российском современном театре</title>
-<link rel="icon" 
-      type="image/png" 
-      href="/static/img/favicon.png">
+<title>Что наша жизнь?</title>
+<link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
+<link rel="icon" type="image/png" href="/static/img/favicon.png">
 </head>
 <style>
-.node text {
-  pointer-events: none;
-  stroke: none;
-  font: 10px Helvetica;
-  padding: 5px;
-}
-
-.node {
-  padding: 20px;
-}
-
-.node:hover, .link:hover {
-  stroke:black;
-  stroke-width: 3px;
-}
-
-.image {
-  cursor: pointer; cursor: hand; 
-}
-
-.link {
-  fill: none;
-  stroke: crimson;
-  padding: 10px;
-  stroke-width: 1px;
-}
-
-.tree {
-  margin: auto;
-  max-width: 960px;
-  z-index: 10000;
+body {
+  font-family: 'Playfair Display', serif;
+  size: 16px;
 }
 
 .lead {
-  height:50px;
-  margin: 0;
-  padding: 30px;
-  font-size: 30px;
-  font-weight: 100;
-  color: black;
-  font-family: Helvetica;
-  text-align: center;
-  z-index: -1000;
-}
-.lead p {
-  font-size: 14px;
-  width:300px;
-  text-align: left;
-  padding: 30px;
-  padding-left:120px;
+  size:60px;
+  margin-top:50px;
 }
 
-.tooltip {
-  color: red;
-  font-size: 70px;
-  top: 50px;
-  position:fixed;
-  z-index: -20;
-  /*background-color: rgba(255,255,255,.8);
-  height: 100%;*/
-}
-
-.mm {
-  position: absolute;
-  top:0;
-  left:0;
-}
-
-@media screen and (max-width: 480px) {
-    .lead p {
-      font-size: 14px;
-      width:300px;
-      text-align: left;
-      padding: 30px;
-    }
-
-    .tree {
-    margin: 0;
-  }
-}
 </style>
 <body>
 <a href="mailto:matyunya@gmail.com"><img class="mm" src="/static/img/mm.png"></a>
-<div class="lead">
-Польская драматургия в российском современном театре
-<p>В материал попали спектакли российских театров за последние 20 лет. Наведите курсор или кликните на автора, чтобы посмотреть, какие его пьесы ставились, как часто и где.</p>
-</div>
-<div class="wrapper">
-  <div class="tree">
-  </div>
-</div>
-<script src="//d3js.org/d3.v3.min.js"></script>
-<script>
 
-var width = 1200,
-    height = 800
-
-var svg = d3.select(".tree").append("svg")
-    .attr("width", width)
-    .attr("height", height);
-
-var force = d3.layout.force()
-    .size([width, height])
-    .linkDistance(60)
-    .charge(-300)
-    .gravity(.1);
-
-d3.json("/static/data.json", function(error, json) {
-  if (error) throw error;
-  force
-      .nodes(json.nodes)
-      .links(json.links)
-      .start();
-
-  var link = svg.selectAll(".link")
-      .data(json.links)
-    .enter().append("line")
-      .attr("class", "link");
-
-  var node = svg.selectAll(".node")
-      .data(json.nodes)
-    .enter().append("g")
-      .attr("class", "node")
-      .call(force.drag);
-
-     var tooltip = d3.select("body")
-        .append("div")
-        .attr("class", "tooltip")
-        .style("visibility", "hidden");
-
- node.append("circle")
-      .attr("class", "node")
-      .attr("dx", function(d) { return d.x; })
-      .attr("dy", function(d) { return d.y; })
-      .attr("r", function(d) { return Math.sqrt(d.size) * 3 || 4.5; })
-      .style("fill", color)
-
-  node.append("text")
-      .attr("class", "text")
-      .attr("text-anchor", "middle")
-      .attr("dy", function(d) { return d.type === "person" ? 37 : 5 })
-      .text(function(d) { return d.name });
-
-  node.append("svg:image")
-        .attr('class', 'image')
-        .attr("xlink:href",  function(d) { return d.img;})
-        .attr("x", function(d) { return -25;})
-        .attr("y", function(d) { return -25;})
-        .attr("height", 50)
-        .attr("width", 50)
-        .on( 'mouseover', function(d) {
-            d3.select( this )
-              .transition()
-              .delay(30)
-              .attr("x", function(d) { return -60;})
-              .attr("y", function(d) { return -60;})
-              .attr("height", 100)
-              .attr("width", 100)
-          })
-        .on ('click', function(d) {
-          tooltip
-              .style("left", d.x)
-              .style("top", d.y)
-              .text( d.desc)
-          tooltip.style("visibility", "visible")
-        })
-        .on( 'mouseleave', function(d) {
-          tooltip.style("visibility", "hidden")
-            d3.select( this )
-              .transition()
-              .attr("x", function(d) { return -25;})
-              .attr("y", function(d) { return -25;})
-              .attr("height", 50)
-              .attr("width", 50);
-          })
-
-  force.on("tick", function() {
-    link.attr("x1", function(d) { return d.source.x; })
-        .attr("y1", function(d) { return d.source.y; })
-        .attr("x2", function(d) { return d.target.x; })
-        .attr("y2", function(d) { return d.target.y; });
-
-    node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
-  });
-});
-
-
-
-function color(d) {
-  return d.fixed || d.type === "theater" ? "khaki" : "SandyBrown" ;
-}
-
-
-</script>
+<div class="lead">а люди в ней актеры</div>
+</body>

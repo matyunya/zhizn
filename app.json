@@ -1,11 +1,11 @@
 {
-  "name": "dramaturgow",
-  "description": "Polish playwrights in Russia",
+  "name": "zhizn",
+  "description": "Russian actors quiz",
   "keywords": [
-    "dramaturgow"
+    "zhizn", "igra"
   ],
   "image": "heroku/go:1.6",
-  "mount_dir": "src/github.com/matyunya/dramaturgow",
-  "website": "https://dramaturgow.herokuapp.com",
-  "repository": "http://github.com/matyunya/dramaturgow"
+  "mount_dir": "src/github.com/matyunya/zhizn",
+  "website": "https://zhizn.herokuapp.com",
+  "repository": "http://github.com/matyunya/zhizn"
 }
