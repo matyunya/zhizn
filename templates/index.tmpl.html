@@ -39,6 +39,12 @@ body {
   font-size:48px;
 }
 
+.final {
+  text-align: center;
+  margin-top: 300px;
+  font-size: 30px;
+}
+
 @-moz-keyframes dropHeader {
     0% {
         -moz-transform: translateY(-400px);
@@ -263,6 +269,7 @@ body {
 
     <p><a id="start" href="javascript:void(0)"><b>Начать</b></a></p>
   </div>
+  <div class="final" style="display:none;"><h1> </h1><p> </p></div>
   <div class="q hidden">
       <img id="portrait" src="/static/img/0.jpg" />
       <span id="counter"> </span>
@@ -440,19 +447,33 @@ function check() {
     a = false;
   }
 
-  if (i < 9) {
+  if (i < 10) {
     result(a);  
   } else {
     final();
   }
 }
 
+finalText = [
+  'Кажется, у вас не очень хорошо получается угадывать персонажей по их обличью. Но справиться со всеми этими шекспировскими королями и чеховскими дамами действительно трудно.',
+  'У вас неплохо получается угадывать персонажей по их обличью. Справиться со всеми этими шекспировскими королями и чеховскими дамами действительно трудно, осталось научиться отличать Дона Жуана от Фигаро.',
+  'Ура, вы прекрасно справились со всеми этими шекспировскими королями и чеховскими дамами. Вас не проведешь.'
+];
+
 function final() {
-  $('#answers').text("Результат: " + score);
-  $('#answer').hide();
-  $('#counter').hide();
-  $('#question').hide();
-  $('#portrait').hide();
+  $('.final').show()
+  $('.final h1').text("Ваш результат: " + score + " баллов");
+
+  if (score < 4) {
+    text = finalText[0];
+  } else if (score < 8) {
+    text = finalText[1];
+  } else {
+    text = finalText[2];
+  }
+
+  $('.final p').text(text)
+  $('.q').hide();
 }
 </script>
 
